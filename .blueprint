@@ -1,0 +1,6 @@
+created:
+    - database/factories/RoleFactory.php
+    - database/migrations/2022_02_24_140722_create_roles_table.php
+    - app/Models/Role.php
+models:
+    Role: { title: 'string:150', slug: 'string:150' }

@@ -1,0 +1,45 @@
+models:
+  Message:
+    id: id
+    text: string:150
+    to_id: id foreign:users
+    from_id: id foreign:users
+      timestamps 
+    relationships:
+      belongsTo: /App/Models/User,/App/Models/User
+
+  Friend:
+    id: id
+    to_id: id foreign:users
+    from_id: id foreign:users   
+      timestamps 
+    relationships:
+      belongsTo: /App/Models/User,/App/Models/User
+
+  Interest:
+    title: string:32
+    relationships:
+      belongsToMany: /App/Models/User, Place
+
+  Place:
+    title: string:32
+    photo: string:150
+    description: string:150 
+    lat: string:150
+    lon: string:150 
+    relationships:
+      belongsToMany: Interest
+
+controllers:
+  Message: 
+    resource: api
+  Friend: 
+    resource: api
+  Interest: 
+    resource: api
+  Place: 
+    resource: api
+  /App/Models/User: 
+    resource: api
+
+seeders: Message, Friend, Interest, Place

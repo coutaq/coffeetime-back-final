@@ -1,0 +1,4 @@
+models:
+  Role:
+    title: string:150
+    slug: string:150
