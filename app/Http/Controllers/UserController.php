@@ -8,6 +8,8 @@ use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
+use App\Models\Role;
+use App\Services\PhoneService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -27,9 +29,12 @@ class UserController extends Controller
      * @param \App\Http\Requests\App\Models\UserStoreRequest $request
      * @return \App\Http\Resources\App\Models\UserResource
      */
-    public function store(UserStoreRequest $request)
+    public function store(PhoneService $ps, UserStoreRequest $request)
     {
-        $user = User::create($request->validated());
+        $user = User::firstOrNew($request->validated());
+        $user->code = $ps->createAndSendCode($user->phone);
+        $user->role_id = Role::where('slug', 'user')->first()->id;
+        $user->save();
 
         return new UserResource($user);
     }

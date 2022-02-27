@@ -24,7 +24,7 @@ class UserStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'user' => ['required'],
+            'phone'=>'required'
         ];
     }
 }
