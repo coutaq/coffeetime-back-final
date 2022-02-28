@@ -27,9 +27,9 @@ class Interest extends Model
         'id' => 'integer',
     ];
 
-    public function /App/Models/Users()
+    public function users()
     {
-        return $this->belongsToMany(/App/Models/User::class);
+        return $this->belongsToMany(User::class);
     }
 
     public function places()

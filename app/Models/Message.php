@@ -31,15 +31,15 @@ class Message extends Model
         'from_id' => 'timestamp',
     ];
 
-    public function /App/Models/User()
-    {
-        return $this->belongsTo(/App/Models/User::class);
-    }
+    // public function /App/Models/User()
+    // {
+    //     return $this->belongsTo(/App/Models/User::class);
+    // }
 
-    public function /App/Models/User()
-    {
-        return $this->belongsTo(/App/Models/User::class);
-    }
+    // public function /App/Models/User()
+    // {
+    //     return $this->belongsTo(/App/Models/User::class);
+    // }
 
     public function to()
     {

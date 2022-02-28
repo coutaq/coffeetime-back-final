@@ -30,12 +30,8 @@ class UserStoreRequest extends FormRequest
             'photo' => ['nullable', 'mimes:jpg,bmp,png'],
             'lat' => ['nullable'],
             'lon' => ['nullable'],
-            'phone' => ['unique', 'max:11'],
-            //    'phone_verified_at'=>['nullable'],
-            //  'code')->nullable();
-            // $table->rememberToken();
+            'phone' => ['required''unique', 'max:11'],
             'isAnon' => ['nullable'],
-            // $table->foreignId('role_id')->constrained();
         ];
     }
 }

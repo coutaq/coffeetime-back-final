@@ -47,4 +47,9 @@ class User extends Authenticatable
     protected $casts = [
         'phone_verified_at' => 'datetime',
     ];
+
+    public function interests()
+    {
+        return $this->belongsToMany(Interest::class);
+    }
 }

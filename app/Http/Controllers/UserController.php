@@ -8,10 +8,31 @@ use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
+use App\Models\Role;
+use App\Services\PhoneService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    public function hasInterests(Request $request){
+        $user = auth()->user();
+        if($user && $user->interests && count($user->interests)>0){
+                return response()->json(['value' => true]);
+        }
+        return response()->json(['value' => false]);
+    }
+
+    public function setUserInterests(Request $request){
+        $user = auth()->user();
+
+        if($request->has('interests')){
+            $interests = $request->interests;
+            foreach($interests as $i){
+                $user->interests()->attach($i['id'], ['value' => $i['value']]);
+            }
+        }
+    }
     /**
      * @param \Illuminate\Http\Request $request
      * @return \App\Http\Resources\App\Models\UserCollection
@@ -27,9 +48,12 @@ class UserController extends Controller
      * @param \App\Http\Requests\App\Models\UserStoreRequest $request
      * @return \App\Http\Resources\App\Models\UserResource
      */
-    public function store(UserStoreRequest $request)
+    public function store(PhoneService $ps, UserStoreRequest $request)
     {
-        $user = User::create($request->validated());
+        $user = User::firstOrNew($request->validated());
+        $user->code = $ps->createAndSendCode($user->phone);
+        $user->role_id = Role::where('slug', 'user')->first()->id;
+        $user->save();
 
         return new UserResource($user);
     }

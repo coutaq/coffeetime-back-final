@@ -17,7 +17,12 @@ class InterestController extends Controller
      */
     public function index(Request $request)
     {
-        $interests = Interest::all();
+        if($request->has('search')){
+            $interests = Interest::where('title', 'LIKE', '%'.$request->search.'%')->get();
+        }else{
+            $interests = Interest::all();       
+        }
+     
 
         return new InterestCollection($interests);
     }
