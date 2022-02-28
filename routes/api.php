@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,12 +19,20 @@ Route::middleware('auth:sanctum')->post('/me', function (Request $request) {
     return auth()->user();
 });
 
-Route::apiResource('message', App\Http\Controllers\MessageController::class);
-
-Route::apiResource('friend', App\Http\Controllers\FriendController::class);
-
-Route::apiResource('interest', App\Http\Controllers\InterestController::class);
-
-Route::apiResource('place', App\Http\Controllers\PlaceController::class);
-
 Route::apiResource('user', App\Http\Controllers\UserController::class);
+    
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::apiResource('message', App\Http\Controllers\MessageController::class);
+
+    Route::apiResource('friend', App\Http\Controllers\FriendController::class);
+
+    Route::apiResource('interest', App\Http\Controllers\InterestController::class);
+
+    Route::apiResource('place', App\Http\Controllers\PlaceController::class);
+
+   
+
+    Route::get('hasInterests', [UserController::class, 'hasInterests']);
+
+    Route::post('setUserInterests', [UserController::class, 'setUserInterests']);
+});
