@@ -24,7 +24,7 @@ class MessageUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'text' => ['required', 'string', 'max:150'],
+            'text' => ['required', 'string'], //нужны ли здесь ограничения на количество?
             'to_id' => ['required', 'integer', 'exists:tos,id'],
             'from_id' => ['required'],
         ];

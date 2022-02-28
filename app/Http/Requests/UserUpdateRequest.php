@@ -25,6 +25,18 @@ class UserUpdateRequest extends FormRequest
     {
         return [
             'user' => ['required'],
+
+            'name' => ['nullable', 'string', 'max:50'],
+            'bio' => ['nullable', 'string', 'max:100'],
+            'photo' => ['nullable', 'mimes:jpg,bmp,png'],
+            'lat' => ['nullable'],
+            'lon' => ['nullable'],
+            'phone' => ['unique', 'max:11'],
+            //    'phone_verified_at'=>['nullable'],
+            //  'code')->nullable();
+            // $table->rememberToken();
+            'isAnon' => ['nullable'],
+            // $table->foreignId('role_id')->constrained();
         ];
     }
 }
