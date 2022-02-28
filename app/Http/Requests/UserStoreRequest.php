@@ -24,7 +24,14 @@ class UserStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'phone'=>'required'
+            'user' => ['required'],
+            'name' => ['nullable', 'string', 'max:50'],
+            'bio' => ['nullable', 'string', 'max:100'],
+            'photo' => ['nullable', 'mimes:jpg,bmp,png'],
+            'lat' => ['nullable'],
+            'lon' => ['nullable'],
+            'phone' => ['required''unique', 'max:11'],
+            'isAnon' => ['nullable'],
         ];
     }
 }
